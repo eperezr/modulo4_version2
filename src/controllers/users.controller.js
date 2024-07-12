@@ -155,4 +155,4 @@ export default {
     activeInactive,
     deleteUser,
     getTasks
-};
+}
