@@ -1,22 +1,23 @@
-import logger from "../logs/logger.js";
+import logger from '../logs/logger.js';
 import bcrypt from 'bcrypt';
 import 'dotenv/config';
 
 export const encriptar = async (text) => {
-try {
+    try {
     const saltRounds = +process.env.BCRYPT_SALT_ROUNDS;
     return await bcrypt.hash(text, saltRounds);
-} catch (error) {
+    }catch (error) {
     logger.error(error.message);
     throw new Error('Error al ecriptar');
-}
+    }
 };
 
 export const comparar = async (text, hash) => {
     try {
-        return await bcrypt.compare(text, hash);
-    } catch (error) {
+        const saltRounds = process.env.BCRYPT_SALT_ROUNDS;
+        return await bcrypt.compare(text, saltRounds);
+        }catch (error) {
         logger.error(error.message);
-    throw new Error ('Error al ecriptar');
-    }
+        throw new Error('Error al ecriptar');
+        }
 };
