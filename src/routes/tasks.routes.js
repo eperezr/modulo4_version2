@@ -1,10 +1,10 @@
-import { Router } from "express";
-import tasksController from "../controllers/tasks.controller.js";
-//import { authenticateToken } from "../middlewares/authenticate.middleware.js";
+import { Router } from 'express';
+import tasksController from '../controllers/tasks.controller.js';
 
 const router = Router();
 
-router.route('/')
+router
+.route('/')
 .get(tasksController.getTasks)
 .post(tasksController.createTask);
 
