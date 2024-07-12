@@ -1,8 +1,9 @@
-import { Task } from "../models/task.js";
-import logger from "../logs/logger.js";
+import { Task } from '../models/task.js';
+import logger from '../logs/logger.js';
 
-async function getTasks(req, res){
-    const {userId} = req.user;
+async function getTasks(req, res) {
+    //res.send('lista tareas');
+    const { userId } = req.user;
     try {
     const tasks = await Task.findAll({
         attributes: ['id', 'name', 'done'],
@@ -20,8 +21,8 @@ async function getTasks(req, res){
     }
 };
 
-
-async function createTask(req, res){
+async function createTask(req, res) {
+    //res.send('crear tarea');
     const { name } = req.body;
     const { userId } = req.user;
     try {
@@ -103,18 +104,21 @@ async function taskDone(req, res) {
     }
 };
 
+
 const deleteTask = async (req, res) => {
-    const { id } = req.params;
-    try {
-        await Task.destroy({ where: {id}});
-        return res.sendStatus(204);
-        } catch (error) {
-        logger.error(error.message);
-        res.status(500).json({
-        message: error.message,
-            });
-        }
-    };
+const { id } = req.params;
+try {
+    await Task.destroy({ where: {id}});
+    return res.sendStatus(204);
+    } catch (error) {
+    logger.error(error.message);
+    res.status(500).json({
+    message: error.message,
+        });
+    }
+}
+
+
 
 export default {
     getTasks,
